@@ -1,4 +1,4 @@
-package api
+package v1
 
 import (
 	"net/http"
@@ -6,6 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (s *Server) ListUsers(c *gin.Context) {
+func ListUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, "ok")
 }

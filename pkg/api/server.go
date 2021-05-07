@@ -10,32 +10,13 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"github.com/zhangjie2012/go-project-layout-template/cmd/options"
-	"github.com/zhangjie2012/go-project-layout-template/pkg/cache"
-	"github.com/zhangjie2012/go-project-layout-template/pkg/store"
 )
 
 type Server struct {
 	HttpServer *http.Server
-
-	Store *store.Store
-	Cache *cache.Cache
 }
 
-type ServerOption func(*Server)
-
-func WithStore(storeX *store.Store) ServerOption {
-	return func(s *Server) {
-		s.Store = storeX
-	}
-}
-
-func WithCache(cacheX *cache.Cache) ServerOption {
-	return func(s *Server) {
-		s.Cache = cacheX
-	}
-}
-
-func NewServer(config *options.AppOption, opts ...ServerOption) *Server {
+func NewServer(config *options.AppOption) *Server {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 	router.Use(gin.Recovery())
@@ -46,10 +27,7 @@ func NewServer(config *options.AppOption, opts ...ServerOption) *Server {
 			Handler: router,
 		},
 	}
-	for _, opt := range opts {
-		opt(s)
-	}
-	s.RegisterRouter(router)
+	RegisterRouter(router)
 
 	return s
 }

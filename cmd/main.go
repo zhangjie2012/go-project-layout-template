@@ -79,7 +79,7 @@ func Serve() {
 	defer cancel()
 
 	// start server
-	server := api.NewServer(opt, api.WithStore(storeX), api.WithCache(cacheX))
+	server := api.NewServer(opt)
 	server.Start(ctx, &wg)
 
 	quit := make(chan os.Signal)

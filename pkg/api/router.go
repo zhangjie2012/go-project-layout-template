@@ -1,13 +1,16 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	v1 "github.com/zhangjie2012/go-project-layout-template/pkg/api/v1"
+)
 
-func (s *Server) RegisterRouter(r *gin.Engine) {
+func RegisterRouter(r *gin.Engine) {
 	apiv1 := r.Group("/api/v1")
-	apiv1.Use(s.LoginRequired())
-	s.RegisterRouterV1(apiv1)
+	apiv1.Use(LoginRequired())
+	RegisterRouterV1(apiv1)
 }
 
-func (s *Server) RegisterRouterV1(r *gin.RouterGroup) {
-	r.GET("/users", s.ListUsers)
+func RegisterRouterV1(r *gin.RouterGroup) {
+	r.GET("/users", v1.ListUsers)
 }
