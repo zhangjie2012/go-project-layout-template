@@ -82,7 +82,7 @@ func Serve() {
 	server := api.NewServer(opt)
 	server.Start(ctx, &wg)
 
-	quit := make(chan os.Signal)
+	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 
